@@ -1,11 +1,19 @@
 SpaceShip ship = new SpaceShip();
+boolean upIsPressed = false;
+boolean downIsPressed = false;
+boolean leftIsPressed = false;
+boolean rightIsPressed = false;
+String prevKey;
+double speedInc = 0;
 
 public void setup() {
   size(500,500);
 }
 
 public void draw() {
+  background(210,210,210);
   ship.show();
+  ship.move();
 }
 
 class SpaceShip extends Floater  { 
@@ -27,7 +35,7 @@ class SpaceShip extends Floater  {
     myDirectionX = 0;
     myDirectionY = 0;
     myPointDirection = 270;
-    myColor = color(255,0,0);
+    myColor = color(0,100,255);
   }
 
   public void setX(int x) {myCenterX = x;}  
@@ -65,7 +73,7 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
   public void accelerate(double dAmount)   
   {          
     //convert the current direction the floater is pointing to radians    
-    double dRadians =myPointDirection*(Math.PI/180);     
+    double dRadians = myPointDirection*(Math.PI/180);     
     //change coordinates of direction of travel    
     myDirectionX += ((dAmount) * Math.cos(dRadians));    
     myDirectionY += ((dAmount) * Math.sin(dRadians));       
@@ -73,7 +81,7 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
   public void rotate (int nDegreesOfRotation)   
   {     
     //rotates the floater by a given number of degrees    
-    myPointDirection+=nDegreesOfRotation;   
+    myPointDirection += nDegreesOfRotation;   
   }   
   public void move()   //move the floater in the current direction of travel
   {      
@@ -82,15 +90,15 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     myCenterY += myDirectionY;     
 
     //wrap around screen    
-    if(myCenterX >width)
+    if(myCenterX > width)
     {     
       myCenterX = 0;    
     }    
-    else if (myCenterX<0)
+    else if (myCenterX < 0)
     {     
       myCenterX = width;    
     }    
-    if(myCenterY >height)
+    if(myCenterY > height)
     {    
       myCenterY = 0;    
     }   
@@ -117,5 +125,76 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     }   
     endShape(CLOSE);  
   }   
-} 
+}
+
+public void keyPressed() {
+  
+
+  if (keyCode == UP) {
+    if (prevKey == "down") {
+      speedInc = 0;
+    }
+    upIsPressed = true;
+    downIsPressed = false;
+    speedInc += 0.002;
+    prevKey = "up";
+    println(speedInc);
+  }
+
+  if (keyCode == DOWN) {
+    if (prevKey == "up") {
+      speedInc = 0;
+    }
+    downIsPressed = true;
+    upIsPressed = false;
+    speedInc -= 0.002;
+    prevKey = "down";
+    println(speedInc);
+  }
+
+  if (keyCode == RIGHT) {
+    rightIsPressed = true;
+    leftIsPressed = false;
+  }
+
+  if (keyCode == LEFT) {
+    leftIsPressed = true;
+    rightIsPressed = false;
+  }
+
+
+
+  if (!(upIsPressed && downIsPressed)) {
+    if (upIsPressed) {
+      ship.accelerate(speedInc);
+    }
+    if (downIsPressed) {
+      ship.accelerate(speedInc);
+    }
+  }
+
+  if (!(leftIsPressed && rightIsPressed)) {
+    if (rightIsPressed) {
+      ship.rotate(5);
+    }
+    if (leftIsPressed) {
+      ship.rotate(-5);
+    }
+  }
+
+
+
+  // if (keyCode == DOWN) {
+  //  ship.accelerate(-.05);
+  // }
+
+  // if (keyCode == RIGHT) {
+  //   ship.rotate(5);
+  // }
+ 
+  // if(keyCode == LEFT) {
+  //  ship.rotate(-5);
+  // }
+  
+}
 
