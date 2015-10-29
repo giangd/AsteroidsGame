@@ -281,11 +281,11 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
   public void accelerate(double dAmount, Char dir)   
   { 
     if (dir == 'w' || dir == 's') {
-      myCenterX += myDirectionX;
+      myCenterY += myDirectionY;
     }
 
-    if (dir == 'w' || dir == 's') {
-      myCenterY += myDirectionY;   
+    if (dir == 'a' || dir == 'd') {
+      myCenterX += myDirectionX;   
     }
     
   }   
@@ -372,19 +372,19 @@ public void keyPressed() {
 
   if (!(upIsPressed && downIsPressed)) {
     if (upIsPressed) {
-      ship.accelerate(speedInc);
+      ship.accelerate(speedInc, 'w');
     }
     if (downIsPressed) {
-      ship.accelerate(speedInc);
+      ship.accelerate(speedInc, 's');
     }
   }
 
   if (!(leftIsPressed && rightIsPressed)) {
-    if (rightIsPressed) {
-      ship.rotate(5);
-    }
     if (leftIsPressed) {
-      ship.rotate(-5);
+      ship.accelerate(speedInc, 'a');
+    }
+    if (rightIsPressed) {
+      ship.accelerate(speedInc ,);
     }
   }
 }
