@@ -11,7 +11,6 @@ public void draw() {
 }
 
 class SpaceShip extends Floater  { 
-  private double myDecreaseValX, myDecreaseValY; 
   public SpaceShip(){
     corners = 4;
     xCorners = new int[corners];
@@ -30,7 +29,6 @@ class SpaceShip extends Floater  {
     myDirectionY = 0;
     myPointDirection = 270;
     myColor = color(0,100,255);
-    myDecreaseVal = 0.001;
   }
 
   public void setX(int x) {myCenterX = x;}  
@@ -43,55 +41,6 @@ class SpaceShip extends Floater  {
   public double getDirectionY() {return myDirectionY;}   
   public void setPointDirection(int degrees) {myPointDirection = degrees;}   
   public double getPointDirection() {return myPointDirection;}
-  public void setDecreaseVal(double val) {myDecreaseVal = val;}
-
-  public void move()
-  {      
-    myCenterX += myDirectionX;    
-    myCenterY += myDirectionY;
-    // println(myDirectionX);
-    // println(myDirectionY);
-    
-    if (!(myDirectionX > -0.05 && myDirectionX < 0.05)) {
-      myDecreaseVal += 0.01;  
-    } else {
-      myDecreaseVal = 0;
-    }
-    if (myDirectionX > 0) {
-      myDirectionX -= myDecreaseVal;
-    } else {
-      myDirectionX += myDecreaseVal;
-    }
-
-    if (!(myDirectionY > -0.05 && myDirectionY < 0.05)) {
-      myDecreaseVal += 0.01;  
-    } else {
-      myDecreaseVal = 0;
-    }
-    if (myDirectionY > 0) {
-      myDirectionY -= myDecreaseVal;
-    } else {
-      myDirectionY += myDecreaseVal;
-    }
-
-    //wrap around screen    
-    if(myCenterX > width)
-    {     
-      myCenterX = 0;    
-    }    
-    else if (myCenterX < 0)
-    {     
-      myCenterX = width;    
-    }    
-    if(myCenterY > height)
-    {    
-      myCenterY = 0;    
-    }   
-    else if (myCenterY < 0)
-    {     
-      myCenterY = height;    
-    }   
-  }
 }
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
 {   
@@ -128,14 +77,10 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     myPointDirection += nDegreesOfRotation;   
   }   
   public void move()   //move the floater in the current direction of travel
-  {   
-    double decreaseVal;   
+  {     
     //change the x and y coordinates by myDirectionX and myDirectionY       
     myCenterX += myDirectionX;    
     myCenterY += myDirectionY;
-    if (myDirectionX > 0) {
-      myDirectionX -= 0.01;
-    }
 
     //wrap around screen    
     if(myCenterX > width)
@@ -181,6 +126,7 @@ public void keyPressed() {
   boolean leftIsPressed = false;
   boolean rightIsPressed = false;
 
+
   if (keyCode == UP) {
     upIsPressed = true;
   }
@@ -198,13 +144,12 @@ public void keyPressed() {
   }
 
 
-
   if (!(upIsPressed && downIsPressed)) {
     if (upIsPressed) {
-      ship.accelerate(0.06);
+      ship.accelerate(0.08);
     }
     if (downIsPressed) {
-      ship.accelerate(-0.06);
+      ship.accelerate(-0.08);
     }
   }
 
