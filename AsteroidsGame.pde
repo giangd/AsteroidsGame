@@ -41,6 +41,51 @@ class SpaceShip extends Floater  {
   public double getDirectionY() {return myDirectionY;}   
   public void setPointDirection(int degrees) {myPointDirection = degrees;}   
   public double getPointDirection() {return myPointDirection;}
+  public void move() {
+    super.move();
+
+    boolean upIsPressed = false;
+    boolean downIsPressed = false;
+    boolean leftIsPressed = false;
+    boolean rightIsPressed = false;
+
+    if (keyPressed) {
+      if (keyCode == UP) {
+        upIsPressed = true;
+      }
+    
+      if (keyCode == DOWN) {
+        downIsPressed = true;
+      }
+    
+      if (keyCode == RIGHT) {
+        rightIsPressed = true;
+      }
+    
+      if (keyCode == LEFT) {
+        leftIsPressed = true;
+      }
+    
+    
+      if (!(upIsPressed && downIsPressed)) {
+        if (upIsPressed) {
+          ship.accelerate(0.08);
+        }
+        if (downIsPressed) {
+          ship.accelerate(-0.08);
+        }
+      }
+    
+      if (!(leftIsPressed && rightIsPressed)) {
+        if (rightIsPressed) {
+          ship.rotate(5);
+        }
+        if (leftIsPressed) {
+          ship.rotate(-5);
+        }
+      }
+    }
+  }
 }
 abstract class Floater //Do NOT modify the Floater class! Make changes in the SpaceShip class 
 {   
@@ -120,49 +165,50 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
   }   
 }
 
-public void keyPressed() {
-  boolean upIsPressed = false;
-  boolean downIsPressed = false;
-  boolean leftIsPressed = false;
-  boolean rightIsPressed = false;
+// public void keyPressed() {
+//   boolean upIsPressed = false;
+//   boolean downIsPressed = false;
+//   boolean leftIsPressed = false;
+//   boolean rightIsPressed = false;
 
 
-  if (keyCode == UP) {
-    upIsPressed = true;
-  }
+//   if (keyCode == UP) {
+//     upIsPressed = true;
+//   }
 
-  if (keyCode == DOWN) {
-    downIsPressed = true;
-  }
+//   if (keyCode == DOWN) {
+//     downIsPressed = true;
+//   }
 
-  if (keyCode == RIGHT) {
-    rightIsPressed = true;
-  }
+//   if (keyCode == RIGHT) {
+//     rightIsPressed = true;
+//   }
 
-  if (keyCode == LEFT) {
-    leftIsPressed = true;
-  }
+//   if (keyCode == LEFT) {
+//     leftIsPressed = true;
+//   }
 
 
-  if (!(upIsPressed && downIsPressed)) {
-    if (upIsPressed) {
-      ship.accelerate(0.08);
-    }
-    if (downIsPressed) {
-      ship.accelerate(-0.08);
-    }
-  }
+//   if (!(upIsPressed && downIsPressed)) {
+//     if (upIsPressed) {
+//       ship.accelerate(0.08);
+//     }
+//     if (downIsPressed) {
+//       ship.accelerate(-0.08);
+//     }
+//   }
 
-  if (!(leftIsPressed && rightIsPressed)) {
-    if (rightIsPressed) {
-      ship.rotate(5);
-    }
-    if (leftIsPressed) {
-      ship.rotate(-5);
-    }
-  }
+//   if (!(leftIsPressed && rightIsPressed)) {
+//     if (rightIsPressed) {
+//       ship.rotate(5);
+//     }
+//     if (leftIsPressed) {
+//       ship.rotate(-5);
+//     }
+//   }
   
-}
+// }
+
 
 
 
