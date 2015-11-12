@@ -1,22 +1,35 @@
 SpaceShip ship = new SpaceShip();
 Asteroid asteroid = new Asteroid();
-Asteroid[] asteroids = new Asteroid[25];
+// Asteroid[] asteroids = new Asteroid[25];
+ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
 
 public void setup() {
   size(500,500);
   asteroid.setX(width/2);
   asteroid.setY(height/2);
   noStroke();
+  // for (int i = 0; i < asteroids.length-1; i ++) {
+  //   asteroids[i] = new Asteroid();
+  // }
+  for (int i = 0; i < 500; i ++) {
+    asteroids.add(new Asteroid());
+  }
+
 }
 
 public void draw() {
   background(210,210,210);
   ship.show();
   ship.move();
-  for (int i = 0; i < 24; i ++) {
-    asteroids[i].show();
-    // asteroids[i].move();
+  // for (int i = 0; i < asteroids.length-1; i ++) {
+  //   asteroids[i].show();
+  //   asteroids[i].move();
+  // }
+  for (Asteroid ast : asteroids) {
+    ast.show();
+    ast.move();
   }
+
 }
 
 class Asteroid extends Floater {
