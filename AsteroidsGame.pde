@@ -11,7 +11,7 @@ public void setup() {
   // for (int i = 0; i < asteroids.length-1; i ++) {
   //   asteroids[i] = new Asteroid();
   // }
-  for (int i = 0; i < 500; i ++) {
+  for (int i = 0; i < 25; i ++) {
     asteroids.add(new Asteroid());
   }
 
@@ -25,9 +25,14 @@ public void draw() {
   //   asteroids[i].show();
   //   asteroids[i].move();
   // }
-  for (Asteroid ast : asteroids) {
+
+  for (int i = 0; i < asteroids.size()-1; i ++) {
+    Asteroid ast = asteroids.get(i);
     ast.show();
     ast.move();
+    if (dist((float)ast.myCenterX, (float)ast.myCenterY, (float)ship.myCenterX, (float)ship.myCenterY) < 20) {
+      asteroids.remove(i);
+    }
   }
 
 }
