@@ -131,6 +131,15 @@ class SpaceShip extends Floater  {
       if (keyCode == LEFT) {
         leftIsPressed = true;
       }
+
+      if (key == 'h' && frameCount % 5 == 0) {
+
+        myDirectionX = 0;
+        myDirectionY = 0;
+        myCenterX = Math.random()*width+1;
+        myCenterY = Math.random()*height+1;
+        myPointDirection = Math.random()*361;
+      }
     
     
       if (!(upIsPressed && downIsPressed)) {
@@ -231,49 +240,15 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
   }   
 }
 
-// public void keyPressed() {
-//   boolean upIsPressed = false;
-//   boolean downIsPressed = false;
-//   boolean leftIsPressed = false;
-//   boolean rightIsPressed = false;
-
-
-//   if (keyCode == UP) {
-//     upIsPressed = true;
-//   }
-
-//   if (keyCode == DOWN) {
-//     downIsPressed = true;
-//   }
-
-//   if (keyCode == RIGHT) {
-//     rightIsPressed = true;
-//   }
-
-//   if (keyCode == LEFT) {
-//     leftIsPressed = true;
-//   }
-
-
-//   if (!(upIsPressed && downIsPressed)) {
-//     if (upIsPressed) {
-//       ship.accelerate(0.08);
-//     }
-//     if (downIsPressed) {
-//       ship.accelerate(-0.08);
-//     }
-//   }
-
-//   if (!(leftIsPressed && rightIsPressed)) {
-//     if (rightIsPressed) {
-//       ship.rotate(5);
-//     }
-//     if (leftIsPressed) {
-//       ship.rotate(-5);
-//     }
-//   }
-  
-// }
+public void keyPressed() {
+  if (key == 'h') {
+    ship.setDirectionX(0);
+    ship.setDirectionY(0);
+    ship.setX((int)Math.random()*width+1);
+    ship.setY((int)Math.random()*height+1);
+    ship.setPointDirection((int)Math.random()*361);
+  }
+}
 
 
 
