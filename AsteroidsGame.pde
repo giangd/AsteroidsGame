@@ -132,14 +132,14 @@ class SpaceShip extends Floater  {
         leftIsPressed = true;
       }
 
-      if (key == 'h' && frameCount % 5 == 0) {
+      // if (key == 'h' && frameCount % 5 == 0) {
 
-        myDirectionX = 0;
-        myDirectionY = 0;
-        myCenterX = Math.random()*width+1;
-        myCenterY = Math.random()*height+1;
-        myPointDirection = Math.random()*361;
-      }
+      //   myDirectionX = 0;
+      //   myDirectionY = 0;
+      //   myCenterX = Math.random()*width+1;
+      //   myCenterY = Math.random()*height+1;
+      //   myPointDirection = Math.random()*361;
+      // }
     
     
       if (!(upIsPressed && downIsPressed)) {
@@ -219,6 +219,7 @@ abstract class Floater //Do NOT modify the Floater class! Make changes in the Sp
     {     
       myCenterY = height;    
     }   
+
   }   
 
   public void show()  //Draws the floater at the current position  
@@ -244,9 +245,9 @@ public void keyPressed() {
   if (key == 'h') {
     ship.setDirectionX(0);
     ship.setDirectionY(0);
-    ship.setX((int)Math.random()*width+1);
-    ship.setY((int)Math.random()*height+1);
-    ship.setPointDirection((int)Math.random()*361);
+    ship.setX((int)(Math.random()*width+1));
+    ship.setY((int)(Math.random()*height+1));
+    ship.setPointDirection((int)(Math.random()*361));
   }
 }
 
