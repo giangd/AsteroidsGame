@@ -1,5 +1,6 @@
 SpaceShip ship = new SpaceShip();
 Asteroid asteroid = new Asteroid();
+//test
 // Asteroid[] asteroids = new Asteroid[25];
 ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
 
@@ -11,7 +12,7 @@ public void setup() {
   // for (int i = 0; i < asteroids.length-1; i ++) {
   //   asteroids[i] = new Asteroid();
   // }
-  for (int i = 0; i < 25; i ++) {
+  for (int i = 0; i < 10; i ++) {
     asteroids.add(new Asteroid());
   }
 
@@ -59,6 +60,8 @@ class Asteroid extends Floater {
     myColor = color(182,73,38);
     myCenterX = (int)(Math.random()*width);
     myCenterY = (int)(Math.random()*height);
+    myDirectionX = Math.random()*1;
+    myDirectionY = Math.random()*1;
   }
   public void setX(int x) {myCenterX = x;}  
   public int getX() {return (int)myCenterX;}   
