@@ -1,6 +1,8 @@
 
 SpaceShip ship = new SpaceShip();
 Asteroid asteroid = new Asteroid();
+Bullet bullet;
+ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 //test
 // Asteroid[] asteroids = new Asteroid[25];
 ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
@@ -16,6 +18,7 @@ public void setup() {
   for (int i = 0; i < 10; i ++) {
     asteroids.add(new Asteroid());
   }
+  
 
 }
 
@@ -23,11 +26,11 @@ public void draw() {
   background(210,210,210);
   ship.show();
   ship.move();
+
   // for (int i = 0; i < asteroids.length-1; i ++) {
   //   asteroids[i].show();
   //   asteroids[i].move();
   // }
-
   for (int i = 0; i < asteroids.size()-1; i ++) {
     Asteroid ast = asteroids.get(i);
     ast.show();
@@ -41,23 +44,12 @@ public void draw() {
 
 class Bullet extends Floater {
   public Bullet(SpaceShip tempSpaceShip) {
-    corners = 4;
-    xCorners = new int[corners];
-    yCorners = new int[corners];
-    xCorners[0] = -8;
-    yCorners[0] = -8;
-    xCorners[1] = 16;
-    yCorners[1] = 0;
-    xCorners[2] = -8;
-    yCorners[2] = 8;
-    xCorners[3] = -2;
-    yCorners[3] = 0;
     myCenterX = tempSpaceShip.myCenterX;
     myCenterY = tempSpaceShip.myCenterY;
-    myDirectionX = 5 * Math.cos(dRadians) + tempSpaceShip.myDirectionX;
-    myDirectionY = 5 * Math.cos(dRadians) + tempSpaceShip.myDirectionX;
     myPointDirection = tempSpaceShip.myPointDirection;
     double dRadians = myPointDirection*(Math.PI/180);
+    myDirectionX = 5 * Math.cos(dRadians) + tempSpaceShip.myDirectionX;
+    myDirectionY = 5 * Math.cos(dRadians) + tempSpaceShip.myDirectionX;
     myColor = color(0,100,255);
   }
   public void setX(int x) {myCenterX = x;}  
@@ -70,6 +62,11 @@ class Bullet extends Floater {
   public double getDirectionY() {return myDirectionY;}   
   public void setPointDirection(int degrees) {myPointDirection = degrees;}   
   public double getPointDirection() {return myPointDirection;}
+  public void show() {
+    fill(myColor);
+    stroke(myColor);
+    ellipse((float)myCenterX+20,(float)myCenterY,10,10);
+  }
 }
 
 class Asteroid extends Floater {
@@ -94,8 +91,8 @@ class Asteroid extends Floater {
     myColor = color(182,73,38);
     myCenterX = (int)(Math.random()*width);
     myCenterY = (int)(Math.random()*height);
-    myDirectionX = Math.random()*1;
-    myDirectionY = Math.random()*1;
+    myDirectionX = Math.random()-.5;
+    myDirectionY = Math.random()-.5;
   }
   public void setX(int x) {myCenterX = x;}  
   public int getX() {return (int)myCenterX;}   
