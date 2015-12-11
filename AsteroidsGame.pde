@@ -13,57 +13,62 @@ public void setup() {
   asteroid.setY(height/2);
   noStroke();
 
-  for (int i = 0; i < 10; i ++) {
+  for (int i = 0; i < 15; i ++) {
     asteroids.add(new Asteroid());
   }
 }
 
 public void draw() {
-  // background(210,210,210);
-  background((int)(Math.random()*361),(int)(Math.random()*361),(int)(Math.random()*361));
-  spaceship.show();
-  spaceship.move();
+  // background(0,0,0);
+  fill(0,0,0,25);
+  noStroke();
+  rect(0,0,width,height);
+  
 
 
   // for (int i = 0; i < asteroids.length-1; i ++) {
   //   asteroids[i].show();
   //   asteroids[i].move();
   // }
-  for (int i = 0; i < asteroids.size()-1; i ++) {
+  for (int i = asteroids.size()-1; i >= 0; i --) {
     Asteroid ast = asteroids.get(i);
     ast.show();
     ast.move();
-    ast.myColor = color((int)(Math.random()*361),(int)(Math.random()*361),(int)(Math.random()*361));
-    if (dist((float)ast.myCenterX, (float)ast.myCenterY, (float)spaceship.myCenterX, (float)spaceship.myCenterY) < 20) {
-      asteroids.remove(i);
-    }
     for (Bullet tempBullet : bullets) {
       if (dist((float)ast.myCenterX, (float)ast.myCenterY, (float)tempBullet.myCenterX, (float)tempBullet.myCenterY) < 20) {
+        println(i);
         asteroids.remove(i);
+        break;
       }
+    }
+    if (dist((float)ast.myCenterX, (float)ast.myCenterY, (float)spaceship.myCenterX, (float)spaceship.myCenterY) < 20) {
+      asteroids.remove(i);
     }
   }
 
   for (int i = bullets.size()-1; i >= 0 ; i --) {
     Bullet tempBullet = bullets.get(i);
-    tempBullet.myColor = color((int)(Math.random()*361),(int)(Math.random()*361),(int)(Math.random()*361));
+    //tempBullet.myColor = color((int)(Math.random()*361),(int)(Math.random()*361),(int)(Math.random()*361));
     tempBullet.show();
     tempBullet.move();
 
-
-    if(tempBullet.myCenterX > width) {     
-      bullets.remove(i);
-    }    
-    else if (tempBullet.myCenterX < 0) {     
-      bullets.remove(i);
-    }    
-    if(tempBullet.myCenterY > height) {    
-      bullets.remove(i);
-    }   
-    else if (tempBullet.myCenterY < 0) {     
-      bullets.remove(i);
-    }  
+    // if (i != 0) {
+      if(tempBullet.myCenterX > width) {     
+        bullets.remove(i);
+      }    
+      else if (tempBullet.myCenterX < 0) {     
+        bullets.remove(i);
+      } else if(tempBullet.myCenterY > height) {    
+        bullets.remove(i);
+      }   
+      else if (tempBullet.myCenterY < 0) {     
+        bullets.remove(i);
+      }  
+    // }
   }
+
+  spaceship.show();
+  spaceship.move();
 
 }
 
@@ -75,7 +80,7 @@ class Bullet extends Floater {
     double dRadians = myPointDirection*(Math.PI/180);
     myDirectionX = 5*Math.cos(dRadians) + tempSpaceShip.myDirectionX;
     myDirectionY = 5*Math.sin(dRadians) + tempSpaceShip.myDirectionY;
-    myColor = color(0,100,255);
+    myColor = color(200,0,0);
   }
   public void setX(int x) {myCenterX = x;}  
   public int getX() {return (int)myCenterX;}   
@@ -90,7 +95,7 @@ class Bullet extends Floater {
   public void show() {
     fill(myColor);
     stroke(myColor);
-    ellipse((float)myCenterX,(float)myCenterY,10,10);
+    ellipse((float)myCenterX,(float)myCenterY,5,5);
   }
   public void move() {
     myCenterX += myDirectionX;      
@@ -101,9 +106,6 @@ class Bullet extends Floater {
 class Asteroid extends Floater {
   private int myRotationSpeed;
   public Asteroid() {
-    corners = 6;
-    xCorners = new int[corners];
-    yCorners = new int[corners];
     // xCorners[0] = -7;
     // yCorners[0] = -10;
     // xCorners[1] = 7;
@@ -116,20 +118,43 @@ class Asteroid extends Floater {
     // yCorners[4] = 10;
     // xCorners[5] = -5;
     // yCorners[5] = 0;
-    xCorners[0] = -7+((int)(Math.random()*9)-4);
-    yCorners[0] = -10+((int)(Math.random()*9)-4);
-    xCorners[1] = 7+((int)(Math.random()*9)-4);
-    yCorners[1] = -8+((int)(Math.random()*9)-4);
-    xCorners[2] = 13+((int)(Math.random()*9)-4);
-    yCorners[2] = 0+((int)(Math.random()*9)-4);
-    xCorners[3] = 6+((int)(Math.random()*9)-4);
-    yCorners[3] = 10+((int)(Math.random()*9)-4);
-    xCorners[4] = -5+((int)(Math.random()*9)-4);
-    yCorners[4] = 10+((int)(Math.random()*9)-4);
-    xCorners[5] = -5+((int)(Math.random()*9)-4);
-    yCorners[5] = 0+((int)(Math.random()*9)-4);
+    // xCorners[0] = -7+((int)(Math.random()*9)-4);
+    // yCorners[0] = -10+((int)(Math.random()*9)-4);
+    // xCorners[1] = 7+((int)(Math.random()*9)-4);
+    // yCorners[1] = -8+((int)(Math.random()*9)-4);
+    // xCorners[2] = 13+((int)(Math.random()*9)-4);
+    // yCorners[2] = 0+((int)(Math.random()*9)-4);
+    // xCorners[3] = 6+((int)(Math.random()*9)-4);
+    // yCorners[3] = 10+((int)(Math.random()*9)-4);
+    // xCorners[4] = -5+((int)(Math.random()*9)-4);
+    // yCorners[4] = 10+((int)(Math.random()*9)-4);
+    // xCorners[5] = -5+((int)(Math.random()*9)-4);
+    // yCorners[5] = 0+((int)(Math.random()*9)-4);
+    corners = 9;
+    myColor = 150;
+    xCorners = new int[corners];
+    yCorners = new int[corners];
+    xCorners[0] = 8+((int)(Math.random()*9)-4);
+    xCorners[1] = 8+((int)(Math.random()*9)-4);
+    xCorners[2] = 0+((int)(Math.random()*9)-4);
+    xCorners[3] = -4+((int)(Math.random()*9)-4);
+    xCorners[4] = -11+((int)(Math.random()*9)-4);
+    xCorners[5] = -11+((int)(Math.random()*9)-4);
+    xCorners[6] = -6+((int)(Math.random()*9)-4);
+    xCorners[7] = 8+((int)(Math.random()*9)-4);
+    xCorners[8] = 10+((int)(Math.random()*9)-4);
+    yCorners[0] = 2+((int)(Math.random()*9)-4);
+    yCorners[1] = 10+((int)(Math.random()*9)-4);
+    yCorners[2] = 12+((int)(Math.random()*9)-4);
+    yCorners[3] = 7+((int)(Math.random()*9)-4);
+    yCorners[4] = 4+((int)(Math.random()*9)-4);
+    yCorners[5] = -5+((int)(Math.random()*9)-4);
+    yCorners[6] = -10+((int)(Math.random()*9)-4);
+    yCorners[7] = -7+((int)(Math.random()*9)-4);
+    yCorners[8] = -3 +((int)(Math.random()*9)-4);
+
     myRotationSpeed = (int)(Math.random()*7)-3;
-    myColor = color(182,73,38);
+    myColor = color(150);
     myCenterX = (int)(Math.random()*width);
     myCenterY = (int)(Math.random()*height);
     myDirectionX = Math.random()-.5;
@@ -184,7 +209,6 @@ class SpaceShip extends Floater  {
   public double getPointDirection() {return myPointDirection;}
   public void move() {
     super.move();
-    myColor = color((int)(Math.random()*361),(int)(Math.random()*361),(int)(Math.random()*361));
 
     boolean upIsPressed = false;
     boolean downIsPressed = false;
