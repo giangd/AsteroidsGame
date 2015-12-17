@@ -1,10 +1,10 @@
-SpaceShip spaceship;
+SpaceShip spaceship = new SpaceShip();
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
 int numTimesHit = 0; //how many asteroids hit ship
 
 public void setup() {
-  spaceship = new SpaceShip();
+  
   size(600,600);
   noStroke();
   textAlign(CENTER,CENTER);
@@ -175,8 +175,8 @@ class SpaceShip extends Floater  {
     yCorners[2] = 8;
     xCorners[3] = -2;
     yCorners[3] = 0;
-    myCenterX = width/2;
-    myCenterY = height/2;
+    myCenterX = 300;
+    myCenterY = 300;
     myDirectionX = 0;
     myDirectionY = 0;
     myPointDirection = 270;
