@@ -1,13 +1,14 @@
-SpaceShip spaceship = new SpaceShip();
+SpaceShip spaceship;
 ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 ArrayList<Asteroid> asteroids = new ArrayList<Asteroid>();
 int numTimesHit = 0; //how many asteroids hit ship
 
 public void setup() {
+  spaceship = new SpaceShip();
   size(600,600);
   noStroke();
   textAlign(CENTER,CENTER);
-  textSize(75);
+  
 
   for (int i = 0; i < 15; i ++) {
     asteroids.add(new Asteroid());
@@ -15,56 +16,67 @@ public void setup() {
 }
 
 public void draw() {
-  fill(0,0,0,80);
-  noStroke();
-  rect(0,0,width,height);
+  if (!focused) {
+    background(0);
+    fill(255);
+    textSize(50);
+    text("WASD to Move",width/2,height/2-150);
+    text("F to Shoot",width/2,height/2-75);
+    text("SPACE to Hyperspace",width/2,height/2);
+    fill(0,255,50);
+    text("Click Here to Play",width/2,height/2+100);
+  } else {
+    fill(0,0,0,80);
+    noStroke();
+    rect(0,0,width,height);
+    if (numTimesHit > 5) {
+      fill(255,0,50);
+      textSize(75);
+      text("YOU LOSE",height/2,width/2);
+    } else if (asteroids.size() == 0) {
+      fill(0,255,50,100);
+      textSize(75);
+      text("YOU WIN",height/2,width/2);
+    }
   
-  if (numTimesHit > 5) {
-    fill(255,0,50);
-    text("YOU LOSE",height/2,width/2);
-  } else if (asteroids.size() == 0) {
-    fill(0,255,50,100);
-    text("YOU WIN",height/2,width/2);
-  }
-
-  for (int i = asteroids.size()-1; i >= 0; i --) {
-    Asteroid ast = asteroids.get(i);
-    ast.show();
-    ast.move();
-    for (Bullet tempBullet : bullets) { // this is for some out of bounds error, i think this fixes it
-      if (dist((float)ast.myCenterX, (float)ast.myCenterY, (float)tempBullet.myCenterX, (float)tempBullet.myCenterY) < 20) {
+    for (int i = asteroids.size()-1; i >= 0; i --) {
+      Asteroid ast = asteroids.get(i);
+      ast.show();
+      ast.move();
+      for (Bullet tempBullet : bullets) { // this is for some out of bounds error, i think this fixes it
+        if (dist((float)ast.myCenterX, (float)ast.myCenterY, (float)tempBullet.myCenterX, (float)tempBullet.myCenterY) < 20) {
+          asteroids.remove(i);
+          break;
+        }
+      }
+      if (numTimesHit<6 && dist((float)ast.myCenterX, (float)ast.myCenterY, (float)spaceship.myCenterX, (float)spaceship.myCenterY) < 20) {
         asteroids.remove(i);
-        break;
+        numTimesHit++;
+        spaceship.setColor(numTimesHit);
       }
     }
-    if (numTimesHit<6 && dist((float)ast.myCenterX, (float)ast.myCenterY, (float)spaceship.myCenterX, (float)spaceship.myCenterY) < 20) {
-      asteroids.remove(i);
-      numTimesHit++;
-      spaceship.setColor(numTimesHit);
+  
+    for (int i = bullets.size()-1; i >= 0 ; i --) {
+      Bullet tempBullet = bullets.get(i);
+      tempBullet.show();
+      tempBullet.move();
+  
+        if(tempBullet.myCenterX > width) {     
+          bullets.remove(i);
+        }    
+        else if (tempBullet.myCenterX < 0) {     
+          bullets.remove(i);
+        } else if(tempBullet.myCenterY > height) {    
+          bullets.remove(i);
+        }   
+        else if (tempBullet.myCenterY < 0) {     
+          bullets.remove(i);
+        }  
     }
+  
+    spaceship.show();
+    spaceship.move();
   }
-
-  for (int i = bullets.size()-1; i >= 0 ; i --) {
-    Bullet tempBullet = bullets.get(i);
-    tempBullet.show();
-    tempBullet.move();
-
-      if(tempBullet.myCenterX > width) {     
-        bullets.remove(i);
-      }    
-      else if (tempBullet.myCenterX < 0) {     
-        bullets.remove(i);
-      } else if(tempBullet.myCenterY > height) {    
-        bullets.remove(i);
-      }   
-      else if (tempBullet.myCenterY < 0) {     
-        bullets.remove(i);
-      }  
-  }
-
-  spaceship.show();
-  spaceship.move();
-
 }
 
 class Bullet extends Floater {
@@ -163,10 +175,10 @@ class SpaceShip extends Floater  {
     yCorners[2] = 8;
     xCorners[3] = -2;
     yCorners[3] = 0;
-    myCenterX = 250;
-    myCenterY = 250;
+    myCenterX = width/2;
+    myCenterY = height/2;
     myDirectionX = 0;
-    myDirectionY = -1;
+    myDirectionY = 0;
     myPointDirection = 270;
     myColorR = 0;
     myColorG = 255;
